@@ -1,17 +1,20 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {onMounted, provide, ref} from "vue";
 import {GridBean} from "../model/grid-bean";
 
 let prop = withDefaults(
     defineProps<{
-      info: GridBean
+      info: GridBean,
     }>(),
     {
-      info: () => new GridBean(),
+      info: () => new GridBean()
     }
 )
 let cellWidth = ref(0);//单格宽度
 let cellHeight = ref(0);//单格高度
+
+provide("cellWidth", cellWidth);//注入单格宽度
+provide("cellHeight", cellHeight);//注入单格高度
 
 /**
  * 初始化

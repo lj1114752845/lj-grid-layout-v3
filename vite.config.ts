@@ -7,6 +7,8 @@ import libCss from "vite-plugin-libcss";
 export default defineConfig({
     plugins: [vue(), dtsPlugin(), libCss()],
     build: {
+        //npm publish
+        outDir: 'dist',
         lib: {
             entry: './src/index.ts',
             name: 'lj-grid-layout-v3',
