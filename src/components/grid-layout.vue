@@ -12,6 +12,7 @@ let prop = withDefaults(
 )
 let cellWidth = ref(0);//单格宽度
 let cellHeight = ref(0);//单格高度
+let layoutRef = ref<HTMLElement>();
 
 provide("cellWidth", cellWidth);//注入单格宽度
 provide("cellHeight", cellHeight);//注入单格高度
@@ -24,7 +25,7 @@ function init() {
 }
 
 function initSize() {
-  let layout = document.getElementById('ljqLayout') as HTMLDivElement;
+  let layout = layoutRef.value as HTMLElement;
   let style = getComputedStyle(layout);
   let padding = {top: 0, left: 0, right: 0, bottom: 0};
   padding.top = parseFloat(style.getPropertyValue('padding-top'));
@@ -50,13 +51,14 @@ defineExpose({
 });
 </script>
 <template>
-  <div id="ljqLayout" class="grid-layout">
+  <div ref="layoutRef" class="grid-layout">
     <slot :cell-width="cellWidth" :cell-height="cellHeight"></slot>
   </div>
 </template>
 
 <style scoped>
 .grid-layout {
+  position: relative;
   box-sizing: border-box;
   width: 100%;
   height: 100%;

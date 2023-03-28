@@ -14,7 +14,7 @@ let prop = withDefaults(
 );
 let cellWidth = inject("cellWidth", ref(0));
 let cellHeight = inject("cellHeight", ref(0));
-
+let itemRef = ref<HTMLElement>();
 let interactObj: any;
 
 function init() {
@@ -30,7 +30,7 @@ function bindInteract() {
   if (prop.disable) {
     return;
   }
-  let gridItem = document.getElementById('ljqItem') as HTMLDivElement;
+  let gridItem = itemRef.value as HTMLElement;
   interactObj = interact(gridItem)
       .resizable({
         //设置可以缩放大小的位置
@@ -74,7 +74,8 @@ function bindInteract() {
           move: (event) => {
             let x: number = parseFloat(gridItem.getAttribute('p-x') || '0') + event.dx;
             let y: number = parseFloat(gridItem.getAttribute('p-y') || '0') + event.dy;
-            gridItem.style.transform = `translate(${x}px, ${y}px)`;
+            gridItem.style.left = `${x}px`;
+            gridItem.style.top = `${y}px`;
             gridItem.setAttribute('p-x', x.toString());
             gridItem.setAttribute('p-y', y.toString());
           },
@@ -94,12 +95,13 @@ function bindInteract() {
  * @param item
  */
 function setItemRect(item: GridItemBean) {
-  let gridItem = document.getElementById('ljqItem') as HTMLDivElement;
+  let gridItem = itemRef.value as HTMLElement;
   gridItem.style.width = `${item.widthSpan * cellWidth.value}px`;
   gridItem.style.height = `${item.heightSpan * cellHeight.value}px`;
   let xp = item.leftSpan * cellWidth.value;
   let yp = item.topSpan * cellHeight.value;
-  gridItem.style.transform = `translate(${xp}px, ${yp}px)`;
+  gridItem.style.left = `${xp}px`;
+  gridItem.style.top = `${yp}px`;
   gridItem.setAttribute('p-x', xp.toString());
   gridItem.setAttribute('p-y', yp.toString());
 }
@@ -123,12 +125,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="ljqItem" class="grid-item">
+  <div ref="itemRef" class="grid-item">
     <slot></slot>
   </div>
 </template>
 
 <style scoped>
 .grid-item {
+  position: absolute;
 }
 </style>
