@@ -24,6 +24,24 @@ function init() {
 }
 
 /**
+ * 将当前dom切换到顶层
+ */
+function switchTop() {
+  if (itemRef.value !== undefined && itemRef.value.parentNode !== undefined) {
+    let parentNode = itemRef.value.parentNode as HTMLElement;
+    let maxZIndex = 0;
+    for (let i = 0; i < parentNode.children.length; i++) {
+      let item = parentNode.children[i] as HTMLElement;
+      let index = parseInt(item.style.zIndex) || 0;
+      if (maxZIndex === 0 || index > maxZIndex) {
+        maxZIndex = index;
+      }
+    }
+    itemRef.value.style.zIndex = (maxZIndex + 1).toString();
+  }
+}
+
+/**
  * 绑定拖拽缩放功能
  */
 function bindInteract() {
@@ -49,6 +67,9 @@ function bindInteract() {
           }),
         ],
         listeners: {
+          start: () => {
+            switchTop();
+          },
           move: (event) => {
             gridItem.style.width = `${event.rect.width}px`;
             gridItem.style.height = `${event.rect.height}px`;
@@ -71,6 +92,9 @@ function bindInteract() {
         ],
         //autoScroll: true,//启用超出后出现滚动条
         listeners: {
+          start: () => {
+            switchTop();
+          },
           move: (event) => {
             let x: number = parseFloat(gridItem.getAttribute('p-x') || '0') + event.dx;
             let y: number = parseFloat(gridItem.getAttribute('p-y') || '0') + event.dy;
