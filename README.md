@@ -6,4 +6,4 @@
 
 # Demo
 
-参照 App.vue 
+参照 App.vue
