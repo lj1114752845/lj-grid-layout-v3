@@ -20,22 +20,26 @@ itemBean2.leftSpan = 50;
 itemBean2.widthSpan = 10;
 itemBean2.heightSpan = 20;
 gridInfo.childList.push(itemBean2);
+
+setTimeout(() => {
+    itemBean.topSpan = 10;
+}, 3000);
 let disable = ref(false);
 </script>
 
 <template>
-  <grid-layout :info="gridInfo" style="background-color: azure">
-    <template #default="item">
-      <template v-for="gridItem of gridInfo.childList">
-        <grid-item
-            :disable="disable"
-            :item-info="gridItem"
-            style="background-color: blueviolet">
-          {{ gridItem }}
-        </grid-item>
-      </template>
-    </template>
-  </grid-layout>
+    <grid-layout :info="gridInfo" style="background-color: azure">
+        <template #default="item">
+            <template v-for="gridItem of gridInfo.childList">
+                <grid-item
+                        :disable="disable"
+                        :item-info="gridItem"
+                        style="background-color: blueviolet">
+                    {{ gridItem }}
+                </grid-item>
+            </template>
+        </template>
+    </grid-layout>
 </template>
 
 <style scoped>
