@@ -1,15 +1,18 @@
 <script setup lang="ts">
-import {inject, onMounted, ref, watch} from "vue";
+import {computed, inject, onMounted, ref, StyleValue, watch} from "vue";
 import {GridItemBean} from "../model/grid-item-bean";
 import interact from "interactjs";
+import {ComputedRef} from "@vue/reactivity";
 
 let prop = withDefaults(
     defineProps<{
         itemInfo: GridItemBean,//网格项配置
         disable: boolean,//是否禁用拖拽缩放能力
+        gap?: number,//间距
     }>(),
     {
-        disable: false
+        disable: false,
+        gap: 0,
     }
 );
 let cellWidth = inject("cellWidth", ref(0));
@@ -130,6 +133,13 @@ function setItemRect(item: GridItemBean) {
     gridItem.setAttribute('p-y', yp.toString());
 }
 
+let itemGap:ComputedRef<StyleValue> = computed(() => {
+    return {
+        'padding': prop.gap + 'px',
+        'box-sizing': 'border-box',
+    }
+});
+
 watch([cellWidth, cellHeight], () => {
     init();
 });
@@ -153,7 +163,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div ref="itemRef" class="grid-item">
+    <div ref="itemRef" class="grid-item" :style="itemGap">
         <slot></slot>
     </div>
 </template>

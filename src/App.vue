@@ -33,10 +33,12 @@ let disable = ref(false);
         <template #default="item">
             <template v-for="item of childList">
                 <grid-item
+                        :gap="5"
                         :disable="disable"
-                        :item-info="item"
-                        style="background-color: blueviolet">
-                    {{ item }}
+                        :item-info="item">
+                    <div style="width: 100%;height: 100%;background-color: blueviolet">
+                        {{ item }}
+                    </div>
                 </grid-item>
             </template>
         </template>
