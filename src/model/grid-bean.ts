@@ -5,7 +5,7 @@ class GridBean {
     rows: number = 48;
     //列数
     cols: number = 48;
-    //无限高度
+    //无限高度 暂时不支持无限高度
     infiniteHeight: boolean = true;
 }
 

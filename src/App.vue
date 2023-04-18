@@ -21,10 +21,10 @@ itemBean2.leftSpan = 50;
 itemBean2.widthSpan = 10;
 itemBean2.heightSpan = 20;
 childList.push(itemBean2);
-
-setTimeout(() => {
-    itemBean.topSpan = 10;
-}, 3000);
+/*模拟外部修改位置信息*/
+// setTimeout(() => {
+//     itemBean.topSpan = 10;
+// }, 3000);
 let disable = ref(false);
 </script>
 
@@ -32,8 +32,9 @@ let disable = ref(false);
     <grid-layout :info="gridInfo" style="background-color: azure">
         <template #default="item">
             <template v-for="item of childList">
+                <!--想要实现模块间距 设置grid-item内边距 -->
                 <grid-item
-                        :gap="5"
+                        style="padding: 5px"
                         :disable="disable"
                         :item-info="item">
                     <div style="width: 100%;height: 100%;background-color: blueviolet">

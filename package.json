@@ -1,6 +1,6 @@
 {
   "name": "lj-grid-layout-v3",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "type": "module",
   "description": "基于网格拖拽以及缩放的vue布局组件",
   "license": "MIT",

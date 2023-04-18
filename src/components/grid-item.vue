@@ -8,11 +8,9 @@ let prop = withDefaults(
     defineProps<{
         itemInfo: GridItemBean,//网格项配置
         disable: boolean,//是否禁用拖拽缩放能力
-        gap?: number,//间距
     }>(),
     {
-        disable: false,
-        gap: 0,
+        disable: false
     }
 );
 let cellWidth = inject("cellWidth", ref(0));
@@ -133,13 +131,6 @@ function setItemRect(item: GridItemBean) {
     gridItem.setAttribute('p-y', yp.toString());
 }
 
-let itemGap:ComputedRef<StyleValue> = computed(() => {
-    return {
-        'padding': prop.gap + 'px',
-        'box-sizing': 'border-box',
-    }
-});
-
 watch([cellWidth, cellHeight], () => {
     init();
 });
@@ -163,7 +154,7 @@ onMounted(() => {
 </script>
 
 <template>
-    <div ref="itemRef" class="grid-item" :style="itemGap">
+    <div ref="itemRef" class="grid-item">
         <slot></slot>
     </div>
 </template>
@@ -171,5 +162,6 @@ onMounted(() => {
 <style scoped>
 .grid-item {
     position: absolute;
+    box-sizing: border-box;
 }
 </style>
