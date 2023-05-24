@@ -1,5 +1,3 @@
-import {GridItemBean} from "./grid-item-bean";
-
 class GridBean {
     //行数
     rows: number = 48;

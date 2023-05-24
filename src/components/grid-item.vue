@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import {computed, inject, onMounted, ref, StyleValue, watch} from "vue";
+import {inject, onMounted, ref, watch} from "vue";
 import {GridItemBean} from "../model/grid-item-bean";
 import interact from "interactjs";
-import {ComputedRef} from "@vue/reactivity";
 
 let prop = withDefaults(
     defineProps<{
